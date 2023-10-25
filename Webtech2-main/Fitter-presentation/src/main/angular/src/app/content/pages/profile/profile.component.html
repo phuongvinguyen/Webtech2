@@ -1,0 +1,28 @@
+<body>
+  <div class="column">
+    <h1 class="mb-3">
+      Profil von: <b>{{ name }}</b>
+    </h1>
+    <h4 class="mb-2">
+      Follower: {{ this.user?.followers }} || Followed:
+      {{ this.user?.followed }}
+    </h4>
+    <h4 class="mb-1">Beitrittsdatum: {{ this.user?.joined }}</h4>
+    <h4 class="mb-1">Beiträge: {{ this.user?.posts }}</h4>
+    <h4 class="mb-3">Schritte: {{ this.user?.totalSteps!.toLocaleString() }}</h4>
+    <div *ngIf="this.user?.admin === true"><h4 class="mb-3 user-role admin">👑 Admin</h4></div>
+    <div *ngIf="this.user?.admin === false">
+      <h4 class="mb-3">🏃‍♂️ Normaler Nutzer</h4>
+    </div>
+
+    <div *ngIf="!isOwnProfile">
+      <button type="text" class="mb-3 btn btn-primary" (click)="follow()">
+        <div *ngIf="this.following === false">Follow</div>
+
+        <div *ngIf="this.following === true">Unfollow</div>
+      </button>
+    </div>
+
+    <app-post [username]="name"></app-post>
+  </div>
+</body>

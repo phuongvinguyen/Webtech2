@@ -1,0 +1,31 @@
+<body>
+  <h1>Einstellungen</h1>
+  <div class="card">
+    <h2>Wähle ein neues sicheres Passwort!</h2>
+    
+    <form [formGroup]="passwortForm" (submit)="changePassword($event)" class="password-form">
+      <div class="form-group">
+        <input
+          type="password"
+          [formControl]="passwortForm.controls.password"
+          class="form-control"
+          placeholder="Neues Passwort"
+          id="exampleInputPassword1"
+        />
+      </div>
+      <div
+        *ngIf="
+          passwortForm.controls.password.invalid &&
+          (passwortForm.controls.password.dirty ||
+            passwortForm.controls.password.touched)
+        "
+        class="alert alert-danger"
+      >
+        <div *ngIf="passwortForm.controls.password.errors">
+          Passwort mindestens 6 Zeichen!
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Passwort ändern</button>
+    </form>
+  </div>
+</body>

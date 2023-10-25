@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login | Fitter Community</title>
+</head>
+<body>
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalLabel">Login Fehler!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+              <p id="errorMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="container">
+        <h1 class="headline">🏃‍♂️Fitter</h1>
+
+        <h4 class="headline">Schrittzähler Community</h4>
+        <form [formGroup]="loginForm" (submit)="login($event)">
+          
+            <div class="mb-3 mt-3">
+                <input type="username" [formControl]="loginForm.controls.username" class="form-control" placeholder="Nutzername" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text"></div>
+            </div>
+            <div *ngIf="loginForm.controls.username.invalid && (loginForm.controls.username.dirty || loginForm.controls.username.touched)" class="alert alert-danger">
+                <div *ngIf="loginForm.controls.username.errors">
+                   Nutzername ist erforderlich!
+                   Mindestens 2 Zeichen!
+                </div>
+            </div>
+            <div class="mb-3">
+                <input type="password" [formControl]="loginForm.controls.password" class="form-control" placeholder="Passwort" id="exampleInputPassword1">
+            </div>
+            <!-- <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Eingeloggt bleiben</label>
+            </div> -->
+            <div *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)" class="alert alert-danger">
+                <div *ngIf="loginForm.controls.password.errors">
+                   Passwort mindestens 6 Zeichen!
+                </div>
+            </div>
+
+            <button type="submit"  class="btn btn-primary">Anmelden</button>
+            <a class="btn btn-secondary" href="/signup" role="button">Kein Konto?</a>
+          
+       
+        </form>
+        
+
+    </div>
+    
+</body>
+</html>

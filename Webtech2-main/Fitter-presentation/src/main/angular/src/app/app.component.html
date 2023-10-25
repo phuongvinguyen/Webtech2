@@ -1,0 +1,35 @@
+
+
+<!-- https://stackoverflow.com/questions/57057112/router-outlet-navigation-with-constant-sidebar-and-navbar-on-angular -->
+
+<head>
+    <style>
+      .main-container {
+        display: flex;
+        height: 100vh;
+      }
+  
+      .sidebar {
+        flex: 0 0 280px;
+      }
+  
+      .content {
+        flex: 1;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="main-container">
+      <div class="sidebar" *ngIf="isLoggedIn"> <!-- Only show if logged in -->
+        <main class="d-flex flex-nowrap">
+          <app-drawer [drawerUser]="user"></app-drawer>
+        </main>
+      </div>
+  
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </body>
+  

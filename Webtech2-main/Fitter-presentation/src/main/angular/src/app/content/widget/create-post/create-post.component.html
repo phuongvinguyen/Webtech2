@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>Deine Schritte 🏃‍♂️🖊️</h1>
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="steps">Schritte</label>
+      <input
+        type="number"
+        class="form-control"
+        id="steps"
+        formControlName="steps"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Beschreibung (optional)</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        formControlName="description"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="mt-3 btn btn-primary"
+      [disabled]="!postForm.valid"
+    >
+      Posten
+    </button>
+
+    <div *ngIf="hasAlreadyPoste == true" class="alert alert-danger">
+      <h1>Bitte beachte: Nur ein Post pro Tag möglich!</h1>
+    </div>
+  </form>
+</div>

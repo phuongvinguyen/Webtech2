@@ -1,0 +1,31 @@
+<!-- <div *ngFor="let user of users$ | async" class="user">
+  <div class="header">
+    <p class="user"> <a [routerLink]="['/profile', post.username]">{{post.username}}</a></p>
+    <button type="text" class="mb-3 btn btn-danger" (click)="post.showEmojiPicker = !post.showEmojiPicker">x</button>
+  </div>
+  
+</div> -->
+<div *ngFor="let user of users$ | async" class="user">
+  <div class="column">
+    <h1 class="mb-3">
+      Profil von: <b>{{ user.username }}</b>
+    </h1>
+    <h4 class="mb-2">
+      Follower: {{ user.followers }} || Followed:
+      {{ user.followed }}
+    </h4>
+    <h4 class="mb-1">Beitrittsdatum: {{ user.joined }}</h4>
+    <h4 class="mb-1">Beiträge: {{ user.posts }}</h4>
+    <h4 class="mb-3">Schritte: {{ user.totalSteps!.toLocaleString() }}</h4>
+
+    <button
+      type="text"
+      class="mb-3 btn btn-primary"
+      [routerLink]="['/profile', user.username]"
+    >
+      Zum Profil
+    </button>
+
+    <app-post [username]="name"></app-post>
+  </div>
+</div>

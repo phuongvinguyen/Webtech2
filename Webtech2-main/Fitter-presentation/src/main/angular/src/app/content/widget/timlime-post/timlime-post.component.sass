@@ -1,0 +1,59 @@
+$post-background-color: #fff
+$post-border-color: #dee2e6
+$btn-border-radius: 0.50rem
+$btn-padding: 0.375rem 0.75rem
+$btn-primary-color: #0d6efd
+$btn-secondary-color: #6c757d
+$btn-danger-color: #dc3545
+$btn-dark-color: #343a40
+$btn-info-color: #17a2b8
+$form-control-border-color: #ced4da
+$box-shadow-color: rgba(0, 0, 0, 0.1)
+
+.post-column 
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  width: 100%
+  max-width: 600px
+  margin: 0 auto
+
+.post 
+  margin-bottom: 2rem
+  border: 1px solid $post-border-color
+  padding: 1rem
+  border-radius: $btn-border-radius
+  background-color: $post-background-color
+  box-shadow: 0 0.5rem 1rem $box-shadow-color
+  min-width: 350px  
+
+.steps 
+  font-size: 1.5rem
+  font-weight: bold
+
+.header 
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+
+.btn-primary 
+  margin-right: 10px
+
+.form-group 
+  margin-bottom: 1.5rem
+
+.container 
+  margin-top: 1.5rem
+  margin-bottom: 1.5rem
+  padding: 1rem
+  border-radius: $btn-border-radius
+  background-color: $post-border-color
+
+[formGroup] 
+  .form-control 
+    width: 100%
+    border: 1px solid $form-control-border-color
+    border-radius: $btn-border-radius
+    padding: $btn-padding
+    box-sizing: border-box

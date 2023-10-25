@@ -1,0 +1,89 @@
+<div *ngFor="let post of posts$ | async" class="post">
+  <div class="header">
+    <p class="steps">{{ post.steps.toLocaleString() }} Schritte</p>
+   
+  </div>
+  <p>{{ post.description }}</p>
+  <p>{{ post.date }}</p>
+  <p>
+    Von: <a [routerLink]="['/profile', post.username]">{{ post.username }}</a>
+  </p>
+
+  <div *ngIf="((post.username == getCurrentUsername() || isAdmin()) )">
+    <button type="text" class="mb-3 btn btn-info" (click)=" editPost(post.id)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+    </svg> Editieren</button>
+  </div>
+
+  <div *ngIf="(post.username == getCurrentUsername() || isAdmin())">
+    <button
+      type="text"
+      class="mb-3 btn btn-danger"
+      (click)="deletePost(post.id)"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+    </svg>   Löschen
+    </button>
+  </div>
+
+  <div *ngIf="postToEdit && post.id === postToEdit.id" class="container">
+    <h1>Schritte bearbeiten 🏃‍♂️🖊️</h1>
+    <form [formGroup]="editPostForm" (ngSubmit)="updatePost()">
+      <div class="form-group">
+        <label for="editSteps">Schritte</label>
+        <input type="number" class="form-control" id="editSteps" formControlName="steps" [value]="postToEdit.steps" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="editDescription">Beschreibung (optional)</label>
+        <input type="text" class="form-control" id="editDescription" formControlName="description" [value]="postToEdit.description">
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!editPostForm.valid">Aktualisieren</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelEditing()">Abbrechen</button>
+    </form>
+    
+  </div>
+
+  <button
+    *ngIf="!post.reactions.alreadyReacted"
+    type="text"
+    class="mb-3 btn btn-dark"
+    (click)="post.showEmojiPicker = !post.showEmojiPicker"
+  >
+    +
+  </button>
+
+  <div style="display: flex; flex-direction: row; gap: 10px">
+    <button
+      *ngFor="let reaktion of getReactionArray(post!.reactions.reactions)"
+      style="
+        border: 2px solid #ccc;
+        padding: 5px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      "
+    >
+      {{ reaktion.key }} {{ reaktion.value }}
+    </button>
+  </div>
+
+  <div *ngIf="post.reactions.alreadyReacted">
+    <br />
+    <button
+      type="text"
+      class="mb-3 btn btn-dark"
+      (click)="removeEmoji(post.id)"
+    >
+      Reaktion entfernen
+    </button>
+  </div>
+
+  <emoji-mart
+    *ngIf="post.showEmojiPicker"
+    (emojiClick)="addEmoji($event, post.id); post.showEmojiPicker = false"
+  ></emoji-mart>
+</div>
